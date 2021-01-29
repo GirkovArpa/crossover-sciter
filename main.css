@@ -1,0 +1,153 @@
+* {
+  font-family: Arial;
+  font-rendering-mode: enhanced;
+}
+
+html {
+  border-radius: 5dip;
+  background: #00000000;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #00000000;
+}
+
+#top-panel {
+  height: 115dip;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#bottom-panel {
+  size: *;
+  background: white;
+}
+
+#crosshair {
+  /* margin shorthand: top right bottom left */
+  image-rendering: auto;
+  width: 100dip;
+  height: 100dip;
+  margin-left: 50dip;
+  margin-right: 50dip;
+  margin-top: 10dip;
+  margin-bottom: 10dip;
+  /*background: blue;*/
+  foreground-size: 100%;
+}
+
+#draggable {
+  width: 35dip;
+  height: 38dip;
+  background: red;
+  opacity: 1;
+  position: relative;
+  right: -165dip;
+  bottom: 43dip;
+  background-image: url(draggable.png);
+}
+
+#link {
+  display: block;
+  horizontal-align: center;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 14dip;
+  font-weight: 700;
+  text-decoration: underline;
+  color: #2466d8;
+  line-height: 50dip;
+}
+
+.row {
+  line-height: 120%;
+  margin: 7dip;
+  font-size: 11dip;
+  font-family: Segoe UI;
+  color: rgb(85, 85, 85);
+}
+
+#radio-buttons {
+  flow: horizontal;
+  border-spacing: *;
+}
+
+input[type=radio] {
+  vertical-align: middle;
+}
+
+#size-slider, #opacity-slider {
+  flow: horizontal;
+  vertical-align: middle;
+}
+
+#size-percentage, #opacity-percentage {
+  text-align: right;
+  font-family: Segoe UI;
+  width: *;
+}
+
+input[type=hslider] {
+  height: 6dip;
+  background: #DDD;
+  border-radius: 2dip;
+  padding: 10dip;
+  cursor: pointer;
+  width: 135dip;
+}
+
+input[type=hslider]>button.slider {
+  size: 16dip;
+  foreground: none;
+  background: #555;
+  border: 0dip solid #555;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.help-text {
+  width: 66%;
+  margin: *;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  float: bottom;
+  text-align: center;
+  vertical-align: middle;
+  letter-spacing: 1.1dip;
+  flow: horizontal;
+  border-spacing: *;
+  font-size: 9dip;
+  color: #666;
+  text-transform: uppercase;
+  font-family: Segoe UI;
+}
+
+.help-text span {
+  vertical-align: middle;
+  font-family: "Courier New";
+  background: #eee;
+  border: 1dip #ddd;
+  padding: 4dip;
+}
+
+#color-picker {
+  cursor: pointer;
+  background-color: red;
+  size: 30dip;
+  border-radius: 50%;
+}
+
+.spring {
+  width: *;
+}
+
+#choose-row {
+  flow: horizontal;
+  vertical-align: middle;
+  width: 100%;
+  text-align: center;
+  border-spacing: 5dip;
+}

@@ -1,0 +1,45 @@
+html {
+  background: blue;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
+.previews {
+  size: *;
+  flow: horizontal-wrap;
+}
+
+.folder-name {
+  margin-left: 10dip;
+  color: #2466D8;
+  font-family: Calibri;
+  font-size: 22dip;
+}
+
+.image {
+  margin: 10dip;
+}
+
+.crosshair-preview {
+  image-rendering: auto;
+  size: 77dip;
+  border-style: dashed;
+  border-color: rgb(211, 211, 211);
+  foreground-size: 80%;
+  cursor: pointer;
+}
+
+.crosshair-preview:hover {
+  border-color: blue;  
+}
+
+.crosshair-name {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 10dip;
+  color: gray;
+}

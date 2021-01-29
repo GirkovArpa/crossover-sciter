@@ -1,0 +1,49 @@
+<html window-frame="transparent">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CrossÜber</title>
+    <link href="main.css" rel="stylesheet">
+    <script src="main.tis"></script>
+    <script src="window.tis"></script>
+  </head>
+
+  <body>
+    <div #top-panel role="window-caption">
+      <img #crosshair src="crosshairs/Actual/leupold-dot.png" />
+      <div #draggable></div>
+    </div>
+    <div #bottom-panel>
+      <div #choose-row>
+        <div .spring></div>
+        <div #color-picker></div>
+        <a #link href="">Choose Crosshair</a>
+        <div .spring></div>
+      </div>
+      <div .row>
+        <div #input-label>Sight</div>
+        <div #radio-buttons>
+          <button|radio (sight) value="bullet" checked>&bull;</button>
+          <button|radio (sight) value="plus">+</button>
+          <button|radio (sight) value="off">off</button>
+        </div>
+      </div>
+      <div .row>
+        <div .input-label>Size</div>
+        <div #size-slider>
+          <input|hslider #size min=0 max=100 value=100 />
+          <div #size-percentage>100%</div>
+        </div>
+      </div>
+      <div .row>
+        <div .input-label>Opacity</div>
+        <div #opacity-slider>
+          <input|hslider #opacity min=0 max=100 value=100 />
+          <div #opacity-percentage>100%</div>
+        </div>
+      </div>
+      <p class="help-text"><span>CTRL</span>+<span id="system-modifier">ALT</span>+<span>SHFT</span>+<span>X</span>
+    </div>
+  </body>
+
+</html>

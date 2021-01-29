@@ -1,0 +1,127 @@
+const DEBUGGING = false;
+DEBUGGING && view.connectToInspector && view.connectToInspector(rootElement, inspectorIpAddress);
+
+event change $(#size) {
+  const n = this.value.toInteger();
+  $(#size-percentage).text = String.$({n}%);
+  $(#crosshair).style.set { 
+    foreground-size: String.$({n}%)
+  };
+}
+
+event change $(#opacity) {
+  const n = this.value;
+  $(#opacity-percentage).text = String.$({n}%);
+  $(#crosshair).style.set { 
+    opacity: n.toFloat() / 100;
+  };
+}
+
+function loadImages() {
+  const folders = [];
+  const filter = "crosshairs/**";
+  const result = System.scanFiles(filter, function(folder, attributes) {
+    if (folder == "." || folder == "..") return true;
+    if((attributes & System.IS_DIR) != 0) {
+      folders.push(folder);
+      return true;
+    }
+  });
+  const filenames = [];
+  for (var folder in folders) {
+    System.scanFiles(String.$(crosshairs/{folder}/**), function(filename, attributes) {
+      if (filename == "." || filename == "..") return true;
+      filenames.push(String.$(crosshairs/{folder}/{filename}));
+      return true;
+    });
+  }
+  view.files = {};
+  for (var filename in filenames) {
+    const folder = filename.slice(0, filename.lastIndexOf("/")).replace("crosshairs/", "");
+    if (view.files[folder] == undefined) view.files[folder] = [];
+    view.files[folder].push(filename);
+  }
+} 
+
+loadImages();
+
+view.savedHtml = false;
+
+$(a) << event click {
+   const popup = view.dialog({ 
+    caption: "Choose A Crosshair",
+    url: self.url("crosshairs.htm"),
+    parameters: {
+      files: view.files,
+      html: view.savedHtml || false;
+      callbacks: {
+        changeCrosshair: function(src) {
+          $(#crosshair).attributes["src"] = src;
+        },
+        saveHtml: function(html) {
+          view.savedHtml = html;
+        }
+      }
+     }
+  });
+}
+
+var sight = "bullet";
+var sightColor = color(255, 0, 0);
+
+event click $(button[name=sight]) (evt) { 
+  sight = $$(button[name=sight]).find(button => button.checked).attributes["value"];
+  $(#crosshair).update();
+} 
+
+$(#crosshair).paintForeground = function(gfx) {
+  if (sight == "off") return;
+  if (sight == "bullet") {
+    const r = $(#size).value.toFloat() / 50.0;
+    for (let i = 0; i < 2; i++) {
+      gfx
+        .fillColor(sightColor)
+        .ellipse(50.0, 50.0, r);
+    }
+  } else if (sight == "plus") {
+    const l = $(#size).value.toFloat() / 10.0;
+    for (let i = 0; i < 2; i++) {
+      gfx
+        .strokeColor(sightColor)
+        .strokeWidth(1.0)
+        .line(50.0, 50.0 - l, 50.0, 50.0 + l)
+        .line(50.0 - l, 50.0, 50.0 + l, 50.0);
+    }
+  }
+}
+
+$(#color-picker) << event click {
+  const popup = view.window({ 
+    type: View.TOOL_WINDOW,
+    caption: "Pick A Color",
+    url: self.url("palette.htm"),
+    parameters: {
+      callbacks: {
+        changeColor: function(color) {
+          sightColor = color;
+          $(#crosshair).update();
+          $(#color-picker).style.set {
+            background-color: sightColor;
+          }
+        }
+      }
+     }
+  });
+} 
+
+function keyCodeName(code) {
+  for(var (name,val) in Event)
+    if(val === code)
+      return name;
+  return "?";
+}      
+
+event keyup (evt) {
+   if( evt.shortcutKey )
+      debug shortcut: evt.keyCode, keyCodeName(evt.keyCode);
+}

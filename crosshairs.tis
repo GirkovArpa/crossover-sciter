@@ -1,0 +1,43 @@
+function self.ready() {
+  const w = 600dip;
+  const h = 400dip;
+  const (sw, sh) = view.screenBox(#frame, #dimension);
+  view.move((sw / 2) - (w / 2), (sh / 2) - (h / 2), w, h, true);
+  view.windowResizable = true;
+}
+
+//stdout.println(JSON.stringify(view.parameters.files));
+
+if (view.parameters.html) {
+  $(body).html = view.parameters.html;
+} else {
+  const files = view.parameters.files;
+  const folders = Object.keys(files);
+
+  for (var folder in folders) {
+    $(#list).$append(<div .folder-name>{folder}</div>);
+    const div = $(#list).$append(<div .previews>);
+    for (var file in files[folder]) {
+      const title = file
+        .slice(file.lastIndexOf("/") + 1, file.lastIndexOf("."))
+        .split("-")
+        .map(w => w[0].toUpperCase() + w.slice(1).toLowerCase())
+        .join(" ");
+
+      div.$append(
+        <div .image>
+            <img .crosshair-preview src="{file}" name="{title}" />
+            <div .crosshair-name>{title}</div>
+          </div>
+      );
+    }
+  }
+}
+
+event click $(.crosshair-preview) (evt) { 
+ // stdout.println(evt.target.attributes["name"]);
+ view.parameters.callbacks.changeCrosshair(evt.target.attributes["src"]);
+ const html = $(body).html;
+ view.parameters.callbacks.saveHtml(html);
+ view.close(); 
+}
